@@ -54,9 +54,7 @@ export function SignUpView() {
             try {
                 const response = await axios.post('http://localhost:3000/register', { username, email, password });
                 if (response.data.message === 'ลงทะเบียนสำเร็จ') {
-                    localStorage.setItem('isAuthenticated', 'true');
-                    localStorage.setItem('username', username);
-                    router.push('/');
+                    router.push('/sign-in');
                 }
             } catch (error) {
                 setApiError(error.response?.data?.error || 'เกิดข้อผิดพลาด');
@@ -238,7 +236,7 @@ export function SignUpView() {
                 }}
             >
                 <Typography variant="body1">
-                    ปลดล็อคความเข้าใจในตัวเอง ❤️
+                    ปลดล็อคความเข้าใจในตัวเอง 💖
                     ทุกที่ ทุกเวลา! ด้วย MINDFUL CYCLE  บันทึกทุกความรู้สึกติดตามรอบเดือน
                 </Typography>
             </Box>

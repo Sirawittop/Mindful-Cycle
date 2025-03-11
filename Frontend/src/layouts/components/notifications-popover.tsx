@@ -1,6 +1,6 @@
 import type { IconButtonProps } from '@mui/material/IconButton';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -39,11 +39,25 @@ export type NotificationsPopoverProps = IconButtonProps & {
 };
 
 export function NotificationsPopover({ data = [], sx, ...other }: NotificationsPopoverProps) {
-  const [notifications, setNotifications] = useState(data);
-
-  const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
-
+  const [notifications, setNotifications] = useState<NotificationItemProps[]>([]);
+  const [totalUnRead, setTotalUnRead] = useState(0);
   const [openPopover, setOpenPopover] = useState<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const userId = localStorage.getItem('user_id');
+        const response = await fetch(`http://localhost:3000/notifications/${userId}`);
+        const notificationsData = await response.json();
+        setNotifications(notificationsData);
+        setTotalUnRead(notificationsData.filter((item: NotificationItemProps) => item.isUnRead).length);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
 
   const handleOpenPopover = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     setOpenPopover(event.currentTarget);
@@ -60,6 +74,7 @@ export function NotificationsPopover({ data = [], sx, ...other }: NotificationsP
     }));
 
     setNotifications(updatedNotifications);
+    setTotalUnRead(0);
   }, [notifications]);
 
   return (
@@ -94,9 +109,9 @@ export function NotificationsPopover({ data = [], sx, ...other }: NotificationsP
       >
         <Box display="flex" alignItems="center" sx={{ py: 2, pl: 2.5, pr: 1.5 }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle1">Notifications</Typography>
+            <Typography variant="subtitle1">การแจ้งเตือน</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              You have {totalUnRead} unread messages
+              คุณมี {totalUnRead} ข้อความที่ยังไม่ได้อ่าน
             </Typography>
           </Box>
 
@@ -141,11 +156,6 @@ export function NotificationsPopover({ data = [], sx, ...other }: NotificationsP
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Box sx={{ p: 1 }}>
-          <Button fullWidth disableRipple color="inherit">
-            View all
-          </Button>
-        </Box>
       </Popover>
     </>
   );

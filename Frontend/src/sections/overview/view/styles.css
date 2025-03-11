@@ -1,0 +1,151 @@
+@import "rsuite/dist/rsuite.css";
+
+
+
+.rs-calendar-table-cell-un-same-month .rs-calendar-table-cell-content {
+    display: none;
+}
+
+.rs-calendar-table-cell-un-same-month {
+    pointer-events: none;
+}
+
+.rs-calendar {
+    background-color: #ffffff;
+    
+}
+
+.rs-calendar-table-cell-content:hover {
+    background-color: #fcf3f5; 
+    color: #000; 
+}
+
+.rs-calendar-table-cell.rs-calendar-table-cell-is-today .rs-calendar-table-cell-day {
+    background-color: #FFB6C1 !important;
+}
+
+.rs-calendar-panel .rs-calendar-table-cell.rs-calendar-table-cell-selected .rs-calendar-table-cell-content {
+    box-shadow: none !important; /* Remove box shadow */
+    border: 2px solid #FFB6C1;
+}
+
+
+.rs-calendar-table .rs-calendar-table-row .rs-calendar-table-cell:last-child {
+    border-right: none;
+}
+
+/* Optional: Add border-left to the first cell in each row for full vertical lines */
+.rs-calendar-table .rs-calendar-table-row .rs-calendar-table-cell:first-child {
+    border-left: 1px solid white;
+}
+
+/* Monday */
+.rs-calendar-table-header-cell[aria-label="Monday"] .rs-calendar-table-header-cell-content {
+    font-size: 0;
+}
+
+.rs-calendar-table-header-cell[aria-label="Monday"] .rs-calendar-table-header-cell-content::before {
+    content: "จันทร์";
+    font-size: 14px;
+}
+
+.rs-calendar-table-header-cell[aria-label="Monday"] .rs-calendar-table-header-cell-content span {
+    display: none;
+}
+
+/* Tuesday */
+.rs-calendar-table-header-cell[aria-label="Tuesday"] .rs-calendar-table-header-cell-content {
+    font-size: 0;
+}
+
+.rs-calendar-table-header-cell[aria-label="Tuesday"] .rs-calendar-table-header-cell-content::before {
+    content: "อังคาร";
+    font-size: 14px;
+}
+
+.rs-calendar-table-header-cell[aria-label="Tuesday"] .rs-calendar-table-header-cell-content span {
+    display: none;
+}
+
+/* Wednesday */
+.rs-calendar-table-header-cell[aria-label="Wednesday"] .rs-calendar-table-header-cell-content {
+    font-size: 0;
+}
+
+.rs-calendar-table-header-cell[aria-label="Wednesday"] .rs-calendar-table-header-cell-content::before {
+    content: "พุธ";
+    font-size: 14px;
+}
+
+.rs-calendar-table-header-cell[aria-label="Wednesday"] .rs-calendar-table-header-cell-content span {
+    display: none;
+}
+
+/* Thursday */
+.rs-calendar-table-header-cell[aria-label="Thursday"] .rs-calendar-table-header-cell-content {
+    font-size: 0;
+}
+
+.rs-calendar-table-header-cell[aria-label="Thursday"] .rs-calendar-table-header-cell-content::before {
+    content: "พฤหัสบดี";
+    font-size: 14px;
+}
+
+.rs-calendar-table-header-cell[aria-label="Thursday"] .rs-calendar-table-header-cell-content span {
+    display: none;
+}
+
+/* Friday */
+.rs-calendar-table-header-cell[aria-label="Friday"] .rs-calendar-table-header-cell-content {
+    font-size: 0;
+}
+
+.rs-calendar-table-header-cell[aria-label="Friday"] .rs-calendar-table-header-cell-content::before {
+    content: "ศุกร์";
+    font-size: 14px;
+}
+
+.rs-calendar-table-header-cell[aria-label="Friday"] .rs-calendar-table-header-cell-content span {
+    display: none;
+}
+
+/* Saturday */
+.rs-calendar-table-header-cell[aria-label="Saturday"] .rs-calendar-table-header-cell-content {
+    font-size: 0;
+}
+
+.rs-calendar-table-header-cell[aria-label="Saturday"] .rs-calendar-table-header-cell-content::before {
+    content: "เสาร์";
+    font-size: 14px;
+}
+
+.rs-calendar-table-header-cell[aria-label="Saturday"] .rs-calendar-table-header-cell-content span {
+    display: none;
+}
+
+/* Sunday */
+.rs-calendar-table-header-cell[aria-label="Sunday"] .rs-calendar-table-header-cell-content {
+    font-size: 0;
+}
+
+.rs-calendar-table-header-cell[aria-label="Sunday"] .rs-calendar-table-header-cell-content::before {
+    content: "อาทิตย์";
+    font-size: 14px;
+}
+
+.rs-calendar-table-header-cell[aria-label="Sunday"] .rs-calendar-table-header-cell-content span {
+    display: none;
+}
+
+
+.small-calendar .rs-calendar-panel:not(.rs-calendar-compact) .rs-calendar-table-row:not(.rs-calendar-table-header-row) .rs-calendar-table-cell-content {
+    height: 70px;
+    width: 90px;
+}
+
+
+.big-calendar {
+    .rs-calendar-panel:not(.rs-calendar-compact) .rs-calendar-table-row:not(.rs-calendar-table-header-row) .rs-calendar-table-cell-content {
+        height: 130px;
+    }
+}

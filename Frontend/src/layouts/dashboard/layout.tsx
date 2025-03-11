@@ -7,7 +7,7 @@ import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 
-import { _langs, _notifications } from 'src/_mock';
+import { _langs } from 'src/_mock';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -37,10 +37,10 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
 
   const layoutQuery: Breakpoint = 'lg';
 
-  const username = localStorage.getItem('username'); // Retrieve username
+  const email = localStorage.getItem('email'); // Retrieve username
 
   const onLogout = () => {
-    localStorage.removeItem('username');
+    localStorage.removeItem('email');
     localStorage.removeItem('isAuthenticated');
     window.location.href = '/sign-in';
   };
@@ -79,16 +79,16 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
                   data={navData}
                   open={navOpen}
                   onClose={() => setNavOpen(false)}
-                  onLogout={onLogout} // Pass onLogout to NavMobile
+                  onLogout={onLogout}
                 />
               </>
             ),
             rightArea: (
               <Box gap={1} display="flex" alignItems="center">
 
-                <NotificationsPopover data={_notifications} />
+                <NotificationsPopover />
                 <Typography style={{ marginLeft: '10px' }}>
-                  {username || 'Guest'} {/* Display username */}
+                  {email || 'Guest'}
                 </Typography>
               </Box>
             ),
@@ -99,7 +99,7 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
        * Sidebar
        *************************************** */
       sidebarSection={
-        <NavDesktop data={navData} layoutQuery={layoutQuery} onLogout={onLogout} /> // Pass onLogout to NavDesktop
+        <NavDesktop data={navData} layoutQuery={layoutQuery} onLogout={onLogout} />
       }
       /** **************************************
        * Footer

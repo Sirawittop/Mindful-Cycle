@@ -33,7 +33,8 @@ export function SignInView() {
       const response = await axios.post('http://localhost:3000/login', { email, password });
       if (response.data.message === 'เข้าสู่ระบบสำเร็จ') {
         localStorage.setItem('isAuthenticated', 'true');
-        localStorage.setItem('username', response.data.user.username); // Store username
+        localStorage.setItem('email', response.data.user.email); // Store username
+        localStorage.setItem('user_id', response.data.user.id); // Store email
         router.push('/');
       }
     } catch (err) {
@@ -186,7 +187,7 @@ export function SignInView() {
         }}
       >
         <Typography variant="body1">
-          ปลดล็อคความเข้าใจในตัวเอง ❤️
+          ปลดล็อคความเข้าใจในตัวเอง 💖
           ทุกที่ ทุกเวลา! ด้วย MINDFUL CYCLE  บันทึกทุกความรู้สึกติดตามรอบเดือน
         </Typography>
       </Box>

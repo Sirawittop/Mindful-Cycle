@@ -1,32 +1,31 @@
-import { Label } from 'src/components/label';
 import { SvgColor } from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
 
 const icon = (name: string) => (
-  <SvgColor width="100%" height="100%" src={`/assets/icons/navbar/${name}.svg`} />
+  <SvgColor width="100%" height="100%" src={`/icon/${name}.svg`} />
 );
 
 export const navData = [
   {
     title: 'ปฎิทิน',
     path: '/',
-    icon: icon('ic-analytics'),
+    icon: icon('calendar'),
   },
   {
     title: 'สถิติ',
     path: '/user',
-    icon: icon('ic-user'),
+    icon: icon('chart'),
   },
   {
     title: 'การตั้งค่า',
     path: '/products',
-    icon: icon('ic-cart'),
+    icon: icon('settings'),
   },
   {
     title: 'ออกจากระบบ',
-    path: '/blog',
-    icon: icon('ic-blog'),
+    path: '/sirawittop',
+    icon: icon('logout'),
 
   },
 ];

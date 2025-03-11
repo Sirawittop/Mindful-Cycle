@@ -1,6 +1,6 @@
 import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
@@ -8,6 +8,8 @@ import { useTheme } from '@mui/material/styles';
 import ListItemButton from '@mui/material/ListItemButton';
 import Drawer, { drawerClasses } from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
 
 import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
@@ -41,38 +43,78 @@ export function NavDesktop({
   onLogout,
 }: NavContentProps & { layoutQuery: Breakpoint; onLogout: () => void }) {
   const theme = useTheme();
+  const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false);
 
   const handleItemClick = (item: { title: string }) => {
     if (item.title === 'ออกจากระบบ') {
-      onLogout();
+      setOpenLogoutConfirm(true);
     } else {
       // handle other item clicks if needed
     }
   };
 
+  const handleLogoutConfirm = () => {
+    setOpenLogoutConfirm(false);
+    onLogout();
+  };
+
+  const handleLogoutCancel = () => {
+    setOpenLogoutConfirm(false);
+  };
+
   return (
-    <Box
-      sx={{
-        pt: 2.5,
-        px: 2.5,
-        top: 0,
-        left: 0,
-        height: 1,
-        display: 'none',
-        position: 'fixed',
-        flexDirection: 'column',
-        bgcolor: 'var(--layout-nav-bg)',
-        zIndex: 'var(--layout-nav-zIndex)',
-        width: 'var(--layout-nav-vertical-width)',
-        borderRight: `1px solid var(--layout-nav-border-color, ${varAlpha(theme.vars.palette.grey['500Channel'], 0.12)})`,
-        [theme.breakpoints.up(layoutQuery)]: {
-          display: 'flex',
-        },
-        ...sx,
-      }}
-    >
-      <NavContent data={data} slots={slots} onItemClick={handleItemClick} />
-    </Box>
+    <>
+      <Box
+        sx={{
+          pt: 2.5,
+          px: 2.5,
+          top: 0,
+          left: 0,
+          height: 1,
+          display: 'none',
+          position: 'fixed',
+          flexDirection: 'column',
+          bgcolor: 'var(--layout-nav-bg)',
+          zIndex: 'var(--layout-nav-zIndex)',
+          width: 'var(--layout-nav-vertical-width)',
+          borderRight: `1px solid var(--layout-nav-border-color, ${varAlpha(theme.vars.palette.grey['500Channel'], 0.12)})`,
+          [theme.breakpoints.up(layoutQuery)]: {
+            display: 'flex',
+          },
+          ...sx,
+        }}
+      >
+        <NavContent data={data} slots={slots} onItemClick={handleItemClick} />
+      </Box>
+      <Modal
+        open={openLogoutConfirm}
+        onClose={handleLogoutCancel}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="h6" component="h2" sx={{ textAlign: 'center' }}>
+            ยืนยันการออกจากระบบ
+          </Typography>
+          <Typography sx={{ mt: 2, textAlign: 'center' }}>
+            คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ ?
+          </Typography>
+          <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+            <Button onClick={handleLogoutCancel} sx={{ mr: 1 }}>ยกเลิก</Button>
+            <Button onClick={handleLogoutConfirm} color="primary">ออกจากระบบ</Button>
+          </Box>
+        </Box>
+      </Modal>
+    </>
   );
 }
 
@@ -87,6 +129,7 @@ export function NavMobile({
   onLogout,
 }: NavContentProps & { open: boolean; onClose: () => void; onLogout: () => void }) {
   const pathname = usePathname();
+  const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -97,29 +140,68 @@ export function NavMobile({
 
   const handleItemClick = (item: { title: string }) => {
     if (item.title === 'ออกจากระบบ') {
-      onLogout();
+      setOpenLogoutConfirm(true);
     } else {
       // handle other item clicks if needed
     }
   };
 
+  const handleLogoutConfirm = () => {
+    setOpenLogoutConfirm(false);
+    onLogout();
+  };
+
+  const handleLogoutCancel = () => {
+    setOpenLogoutConfirm(false);
+  };
+
   return (
-    <Drawer
-      open={open}
-      onClose={onClose}
-      sx={{
-        [`& .${drawerClasses.paper}`]: {
-          pt: 2.5,
-          px: 2.5,
-          overflow: 'unset',
-          bgcolor: 'var(--layout-nav-bg)',
-          width: 'var(--layout-nav-mobile-width)',
-          ...sx,
-        },
-      }}
-    >
-      <NavContent data={data} slots={slots} onItemClick={handleItemClick} />
-    </Drawer>
+    <>
+      <Drawer
+        open={open}
+        onClose={onClose}
+        sx={{
+          [`& .${drawerClasses.paper}`]: {
+            pt: 2.5,
+            px: 2.5,
+            overflow: 'unset',
+            bgcolor: 'var(--layout-nav-bg)',
+            width: 'var(--layout-nav-mobile-width)',
+            ...sx,
+          },
+        }}
+      >
+        <NavContent data={data} slots={slots} onItemClick={handleItemClick} />
+      </Drawer>
+      <Modal
+        open={openLogoutConfirm}
+        onClose={handleLogoutCancel}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="h6" component="h2">
+            ยืนยันการออกจากระบบ
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ?
+          </Typography>
+          <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+            <Button onClick={handleLogoutCancel} sx={{ mr: 1 }}>ยกเลิก</Button>
+            <Button onClick={handleLogoutConfirm} color="primary">ออกจากระบบ</Button>
+          </Box>
+        </Box>
+      </Modal>
+    </>
   );
 }
 
@@ -160,8 +242,8 @@ export function NavContent({ data, slots, sx, onItemClick }: NavContentProps & {
                 <ListItem disableGutters disablePadding key={item.title} onClick={() => onItemClick(item)}>
                   <ListItemButton
                     disableGutters
-                    component={RouterLink}
-                    href={item.path}
+                    component={item.title === 'ออกจากระบบ' ? 'div' : RouterLink}
+                    href={item.title === 'ออกจากระบบ' ? undefined : item.path}
                     sx={{
                       pl: 2,
                       py: 1,
