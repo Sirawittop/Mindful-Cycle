@@ -106,7 +106,12 @@ export function UserView() {
     return 'ไม่พบข้อมูล';
   };
 
-  const getSymptomData = (period: string) => symptomTrackingData.find(data => data.period === period) || {};
+  const getSymptomData = (period: string) => {
+    if (!Array.isArray(symptomTrackingData) || symptomTrackingData.length === 0) {
+      return {};
+    }
+    return symptomTrackingData.find(data => data.period === period) || {};
+  };
 
   const renderSymptomSection = (period: string, index: number) => {
     const symptomData = getSymptomData(period);
