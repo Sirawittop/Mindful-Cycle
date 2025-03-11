@@ -185,7 +185,9 @@ export function UserView() {
   const handleClose = () => setOpen(false);
 
   const renderCell = (date: Date) => {
-    const dateString = date.toISOString().split('T')[0];
+    const nextDate = new Date(date);
+    nextDate.setDate(date.getDate() + 1);
+    const dateString = nextDate.toISOString().split('T')[0];
     const assessmentsOnDate = allAssessments.filter(assessment => assessment.date.startsWith(dateString));
     if (assessmentsOnDate.length > 0) {
       return (
